@@ -17,12 +17,12 @@ extern "C" {
 #if defined(__unix__)
 	#include <sys/mman.h>
 	#include <sys/user.h>
-	static bool _booxActiveMemory(void *ptr, size_t size) {
+	static inline bool _booxActiveMemory(void *ptr, size_t size) {
 		return mprotect((void *)(((size_t)ptr >> PAGE_SHIFT) << PAGE_SHIFT), size, PROT_READ | PROT_EXEC | PROT_WRITE) == 0;
 	}
 #elif defined(_WIN32)
 	#include <windows.h>
-	static bool _booxActiveMemory(void *ptr, size_t size) {
+	static inline bool _booxActiveMemory(void *ptr, size_t size) {
 		DWORD oldProtect;
 		return VirtualProtect(ptr, size, PAGE_EXECUTE_READWRITE, &oldProtect);
 	}
