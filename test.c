@@ -1,15 +1,13 @@
 #include <stdio.h>
-#include "boox.h"
+#include "clofn.h"
 
-void foo(void) {
-	booxDataDecl(size_t, data);
+def_Clofn(void, foo, size_t, data, (void), {
 	printf("I'm foo, %u\n", data);
-}
+})
 
 int main(void) {
-	foo();
-	void (*f)(void) = booxMakeFunc(foo, (void *)2333);
-	if (f) {
-		f();
+	void (*foo)(void) = new_Clofn(foo, 2333);
+	if (foo) {
+		foo();
 	}
 }
